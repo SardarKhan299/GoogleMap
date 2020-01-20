@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -42,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
+        Log.d(this@MapsActivity.javaClass.simpleName, "onMapReady: ");
         map = googleMap
 
 
@@ -49,6 +51,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
         map.addMarker(MarkerOptions().position(homeLatLng).title("Home"))
+        setMapLongClick(map)
+    }
+
+    private fun setMapLongClick(map:GoogleMap) {
+        Log.d(this@MapsActivity.javaClass.simpleName, "setMapLongClick: ");
+        map.setOnMapLongClickListener { latLng ->
+            Log.d(this@MapsActivity.javaClass.simpleName, "setMapLongClick: ");
+            // A Snippet is Additional text that's displayed below the title.
+            val snippet = String.format(
+                Locale.getDefault(),
+                "Lat: %1$.5f, Long: %2$.5f",
+                latLng.latitude,
+                latLng.longitude
+            )
+            map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(getString(R.string.dropped_pin))
+                    .snippet(snippet)
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
