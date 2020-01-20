@@ -11,10 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -26,6 +23,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     val zoomLevel = 15f
     // Add a marker in Sydney and move the camera
     val sydney = LatLng(-34.0, 151.0)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +46,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(this@MapsActivity.javaClass.simpleName, "onMapReady: ");
         map = googleMap
-
+        val overlaySize = 100f
+        val androidOverlay = GroundOverlayOptions().image(BitmapDescriptorFactory.fromResource(R.drawable.image17)).position(homeLatLng, overlaySize)
 
         //map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         //map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
@@ -57,6 +56,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setMapLongClick(map)
         setPoiClick(map)
         setMapStyle(map)
+        map.addGroundOverlay(androidOverlay)
     }
 
     private fun setMapLongClick(map:GoogleMap) {

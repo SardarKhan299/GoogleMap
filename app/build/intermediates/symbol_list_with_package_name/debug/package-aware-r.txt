@@ -723,6 +723,7 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable image17
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
