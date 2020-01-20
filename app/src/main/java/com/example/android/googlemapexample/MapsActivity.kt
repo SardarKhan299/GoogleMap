@@ -16,6 +16,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
+    val latitude = 37.422160
+    val longitude = -122.084270
+    val homeLatLng = LatLng(latitude, longitude)
+    val zoomLevel = 15f
+    // Add a marker in Sydney and move the camera
+    val sydney = LatLng(-34.0, 151.0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +44,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        //map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        //map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
+        map.addMarker(MarkerOptions().position(homeLatLng).title("Home"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
